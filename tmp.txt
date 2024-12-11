@@ -1,0 +1,44 @@
+/*package temp
+
+import (
+	"context"
+	"fmt"
+	"os"
+	"reflect"
+	"time"
+
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
+)
+type Users struct {
+	UserName string `json:"user_name"`
+	Password string `json:"password"`
+}
+func main(){
+	clientOptions:=options.Client().ApplyURI("mongodb://localhost:27017")
+	fmt.Println("client opton type:",reflect.TypeOf(clientOptions))
+
+	client,err:=mongo.Connect(context.TODO(),clientOptions)
+	if err!=nil{
+		fmt.Println("mongo connection error:",err)
+		os.Exit(1)
+	}
+
+	ctx,_:=context.WithTimeout(context.Background(),15*time.Second)
+	
+	col:=client.Database("todo_db").Collection("users")
+
+	userData:= Users{
+		UserName: "admin2",
+		Password: "admin2",
+	}
+
+	result,insertErr:=col.InsertOne(ctx,userData)
+	if insertErr!=nil{
+		fmt.Println("insertion error:",insertErr)
+		os.Exit(1)
+	}else{
+		fmt.Println("inseted id:",result.InsertedID)
+	}
+
+}*/

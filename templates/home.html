@@ -1,0 +1,98 @@
+<!-- <h1>Welcome, {{.Username}}</h1>
+<form action="/create-task" method="post">
+  <input type="hidden" name="username" value="{{.Username}}">
+  <label>New Task:</label>
+  <input type="text" name="task_name" required>
+  <button type="submit">Create Task</button>
+</form>
+<ul>
+  {{range .Tasks}}
+    <li>
+      <form action="/update-task" method="post" style="display:inline;">
+        <input type="hidden" name="username" value="{{$.Username}}">
+        <input type="hidden" name="task_name" value="{{.TaskName}}">
+        <input type="checkbox" name="status" {{if .Status}}checked{{end}} onchange="this.form.submit();">
+        {{.TaskName}}
+      </form>
+    </li>
+  {{end}}
+</ul> -->
+
+
+
+
+
+<h1>Welcome, {{.Username}}</h1>
+
+<!-- Create Task Form -->
+<form action="/create-task" method="post">
+  <input type="hidden" name="user_name" value="{{.Username}}">
+  <label>New Task:</label>
+  <input type="text" name="task_name" required>
+  <button type="submit">Create Task</button>
+</form>
+
+<!-- Task List Table -->
+<table border="1" style="margin-top: 20px; width: 100%; border-collapse: collapse;">
+  <thead>
+    <tr>
+      <th>Task Name</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{range .Tasks}}
+      <tr>
+        <!-- Task Name -->
+        <td>{{.TaskName}}</td>
+
+        <!-- Status Checkbox -->
+        <!-- <td style="text-align: center;">
+          <form action="/update-task" method="post" style="display:inline;">
+            <input type="hidden" name="username" value="{{$.Username}}">
+            <input type="hidden" name="task_name" value="{{.TaskName}}">
+            <input type="checkbox" name="status" {{if .Status}}checked{{end}} onchange="this.form.submit();">
+          </form>
+        </td> -->
+
+        
+        <!-- Status String -->
+        <td style="text-align: center;">
+          {{if .Status}}
+            Completed
+          {{else}}
+            Pending
+          {{end}}
+        </td>
+
+        
+        
+        
+        <!-- Actions (Edit and Delete Buttons) -->
+        <!-- <td style="text-align: center;">
+          <form action="/update-task" method="post" style="display:inline; margin-right: 5px;">
+            <input type="hidden" name="user_name" value="{{$.Username}}">
+            <input type="hidden" name="task_name" value="{{.TaskName}}">
+            <button type="submit">Edit</button>
+          </form> -->
+          
+          <td style="text-align: center;">
+          <form action="/edit-task" method="get" style="display:inline; margin-right: 5px;">
+            <input type="hidden" name="user_name" value="{{$.Username}}">
+            <input type="hidden" name="task_name" value="{{.TaskName}}">
+            <button type="submit">Edit</button>
+          </form>
+          
+          
+          
+          <form action="/delete-task" method="post" style="display:inline;">
+            <input type="hidden" name="username" value="{{$.Username}}">
+            <input type="hidden" name="task_name" value="{{.TaskName}}">
+            <button type="submit" onclick="return confirm('Are you sure you want to delete this task?')">Delete</button>
+          </form>
+        </td>
+      </tr>
+    {{end}}
+  </tbody>
+</table>

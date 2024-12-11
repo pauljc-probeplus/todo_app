@@ -1,0 +1,20 @@
+<h1>Edit Task</h1>
+<form action="/save-task" method="post">
+  <input type="hidden" name="user_name" value="{{.Username}}">
+  
+  <!-- Edit Task Name -->
+  <label for="task_name">Task Name:</label>
+  <input type="text" id="task_name" name="task_name" value="{{.TaskName}}" placeholder="Task Name" required>
+  <br><br>
+
+  <!-- Edit Status -->
+  <label for="status">Status:</label>
+  <select id="status" name="status">
+    <option value="true" {{if .Status}}selected{{end}}>Completed</option>
+    <option value="false" {{if not .Status}}selected{{end}}>Pending</option>
+  </select>
+  <br><br>
+
+  <!-- Save Button -->
+  <button type="submit">Save</button>
+</form>
