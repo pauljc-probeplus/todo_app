@@ -8,6 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"log"
+	"fmt"
 	//"bytes"
 	//"net/http"
 )
@@ -106,13 +107,14 @@ func SaveTask(c *fiber.Ctx, db *mongo.Database) error {
     }
 
     // Update the task in the database
-    filter := bson.M{"user_name": task.Username, "task_name": c.FormValue("original_task_name")}
+    filter := bson.M{"user_name": task.Username, "task_name": task.TaskName}
     update := bson.M{
         "$set": bson.M{
             "task_name": task.TaskName,
             "status":    task.Status,
         },
     }
+	fmt.Println("Filter:", filter)
 
     _, err := db.Collection("tasks").UpdateOne(context.Background(), filter, update)
     if err != nil {
